@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DE6BBEB1971B2A4004A5985 /* StoryboardiPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6BBEA1971B2A4004A5985 /* StoryboardiPhone.storyboard */; };
+		4DE6BBEE1971B7A8004A5985 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6BBED1971B7A8004A5985 /* MainViewController.m */; };
+		4DE6BBF01971BB5F004A5985 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6BBEF1971BB5F004A5985 /* CoreMotion.framework */; };
 		4DF7EA8F1971A73F0032D2E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF7EA8E1971A73F0032D2E5 /* Foundation.framework */; };
 		4DF7EA911971A73F0032D2E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF7EA901971A73F0032D2E5 /* CoreGraphics.framework */; };
 		4DF7EA931971A73F0032D2E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF7EA921971A73F0032D2E5 /* UIKit.framework */; };
@@ -32,6 +35,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4DE6BBEA1971B2A4004A5985 /* StoryboardiPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardiPhone.storyboard; sourceTree = "<group>"; };
+		4DE6BBEC1971B7A8004A5985 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		4DE6BBED1971B7A8004A5985 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		4DE6BBEF1971BB5F004A5985 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		4DF7EA8B1971A73F0032D2E5 /* Accelerometer Profiler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Accelerometer Profiler.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DF7EA8E1971A73F0032D2E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4DF7EA901971A73F0032D2E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -55,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DE6BBF01971BB5F004A5985 /* CoreMotion.framework in Frameworks */,
 				4DF7EA911971A73F0032D2E5 /* CoreGraphics.framework in Frameworks */,
 				4DF7EA931971A73F0032D2E5 /* UIKit.framework in Frameworks */,
 				4DF7EA8F1971A73F0032D2E5 /* Foundation.framework in Frameworks */,
@@ -96,6 +104,7 @@
 		4DF7EA8D1971A73F0032D2E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DE6BBEF1971BB5F004A5985 /* CoreMotion.framework */,
 				4DF7EA8E1971A73F0032D2E5 /* Foundation.framework */,
 				4DF7EA901971A73F0032D2E5 /* CoreGraphics.framework */,
 				4DF7EA921971A73F0032D2E5 /* UIKit.framework */,
@@ -109,6 +118,9 @@
 			children = (
 				4DF7EA9D1971A73F0032D2E5 /* AppDelegate.h */,
 				4DF7EA9E1971A73F0032D2E5 /* AppDelegate.m */,
+				4DE6BBEA1971B2A4004A5985 /* StoryboardiPhone.storyboard */,
+				4DE6BBEC1971B7A8004A5985 /* MainViewController.h */,
+				4DE6BBED1971B7A8004A5985 /* MainViewController.m */,
 				4DF7EAA01971A73F0032D2E5 /* Images.xcassets */,
 				4DF7EA951971A73F0032D2E5 /* Supporting Files */,
 			);
@@ -220,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DE6BBEB1971B2A4004A5985 /* StoryboardiPhone.storyboard in Resources */,
 				4DF7EA991971A73F0032D2E5 /* InfoPlist.strings in Resources */,
 				4DF7EAA11971A73F0032D2E5 /* Images.xcassets in Resources */,
 			);
@@ -257,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DF7EA9F1971A73F0032D2E5 /* AppDelegate.m in Sources */,
+				4DE6BBEE1971B7A8004A5985 /* MainViewController.m in Sources */,
 				4DF7EA9B1971A73F0032D2E5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,7 +393,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Accelerometer Profiler/Accelerometer Profiler-Prefix.pch";
 				INFOPLIST_FILE = "Accelerometer Profiler/Accelerometer Profiler-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -392,7 +408,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Accelerometer Profiler/Accelerometer Profiler-Prefix.pch";
 				INFOPLIST_FILE = "Accelerometer Profiler/Accelerometer Profiler-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
