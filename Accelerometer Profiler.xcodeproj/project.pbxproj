@@ -153,6 +153,7 @@
 			buildPhases = (
 				4DF7EA871971A73F0032D2E5 /* Sources */,
 				4DF7EA881971A73F0032D2E5 /* Frameworks */,
+				4D5EDDF61971B07500027386 /* ShellScript */,
 				4DF7EA891971A73F0032D2E5 /* Resources */,
 			);
 			buildRules = (
@@ -233,6 +234,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4D5EDDF61971B07500027386 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4DF7EA871971A73F0032D2E5 /* Sources */ = {
@@ -439,6 +456,7 @@
 				4DF7EAB91971A73F0032D2E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DF7EABA1971A73F0032D2E5 /* Build configuration list for PBXNativeTarget "Accelerometer ProfilerTests" */ = {
 			isa = XCConfigurationList;
@@ -447,6 +465,7 @@
 				4DF7EABC1971A73F0032D2E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
