@@ -17,12 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *rollValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pitchValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yawValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *mxValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *myValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *mzValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *accelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gyroLabel;
-@property (weak, nonatomic) IBOutlet UILabel *magnetoLabel;
 
 - (IBAction)switchValueChanged:(UISwitch *)sender;
 

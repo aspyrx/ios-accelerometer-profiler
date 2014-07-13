@@ -10,7 +10,6 @@
 #import "AppDelegate.h"
 
 static const NSTimeInterval deviceMotionInterval = 0.03;
-static const NSTimeInterval magnetometerInterval = 0.03;
 
 @interface MainViewController ()
 
@@ -42,11 +41,6 @@ static const NSTimeInterval magnetometerInterval = 0.03;
         self.gyroLabel.text = @"Gyroscope";
         self.gyroLabel.textColor = [UIColor darkTextColor];
     }
-    
-    if ([mManager isMagnetometerAvailable]) {
-        self.magnetoLabel.text = @"Magnetometer";
-        self.magnetoLabel.textColor = [UIColor darkTextColor];
-    }
 }
 
 # pragma mark - Interface methods
@@ -57,10 +51,6 @@ static const NSTimeInterval magnetometerInterval = 0.03;
     if (!sender.isOn) {
         if ([mManager isDeviceMotionActive]) {
             [mManager stopDeviceMotionUpdates];
-        }
-        
-        if ([mManager isMagnetometerActive]) {
-            [mManager stopMagnetometerUpdates];
         }
     } else {
         if (![mManager isDeviceMotionActive] && [mManager isDeviceMotionAvailable]) {
@@ -78,20 +68,6 @@ static const NSTimeInterval magnetometerInterval = 0.03;
                 self.rollValueLabel.text = [NSString stringWithFormat:@"%.6f rad", motion.attitude.roll];
                 self.pitchValueLabel.text = [NSString stringWithFormat:@"%.6f rad", motion.attitude.pitch];
                 self.yawValueLabel.text = [NSString stringWithFormat:@"%.6f rad", motion.attitude.yaw];
-            }];
-        }
-        
-        if (![mManager isMagnetometerActive] && [mManager isMagnetometerAvailable]) {
-            [mManager setDeviceMotionUpdateInterval:magnetometerInterval];
-            [mManager startMagnetometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMMagnetometerData *magnetometerData, NSError *error) {
-                if (error != nil) {
-                    NSLog(@"Error: %@", error);
-                    return;
-                }
-                
-                self.mxValueLabel.text = [NSString stringWithFormat:@"%.6f µT", magnetometerData.magneticField.x];
-                self.myValueLabel.text = [NSString stringWithFormat:@"%.6f µT", magnetometerData.magneticField.y];
-                self.mzValueLabel.text = [NSString stringWithFormat:@"%.6f µT", magnetometerData.magneticField.z];
             }];
         }
     }
