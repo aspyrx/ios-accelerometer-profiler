@@ -23,6 +23,9 @@
 		4DF7EAB21971A73F0032D2E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DF7EAB01971A73F0032D2E5 /* InfoPlist.strings */; };
 		4DF7EAB41971A73F0032D2E5 /* Accelerometer_ProfilerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7EAB31971A73F0032D2E5 /* Accelerometer_ProfilerTests.m */; };
 		4DF8E08E1972EF2A00306039 /* GraphsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8E08D1972EF2A00306039 /* GraphsViewController.m */; };
+		4DF8E2481972F17500306039 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF8E2451972F0F800306039 /* libCorePlot-CocoaTouch.a */; };
+		4DF8E2491972F22000306039 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF8E08F1972EFB400306039 /* QuartzCore.framework */; };
+		4DF8E24A1972F22800306039 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF8E0911972EFBC00306039 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,13 @@
 			containerPortal = 4DF8E23E1972F0F700306039 /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		4DF8E2461972F15300306039 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DF8E23E1972F0F700306039 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 /* End PBXContainerItemProxy section */
@@ -75,6 +85,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DF8E24A1972F22800306039 /* Accelerate.framework in Frameworks */,
+				4DF8E2491972F22000306039 /* QuartzCore.framework in Frameworks */,
+				4DF8E2481972F17500306039 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				4DE6BBF01971BB5F004A5985 /* CoreMotion.framework in Frameworks */,
 				4DF7EA911971A73F0032D2E5 /* CoreGraphics.framework in Frameworks */,
 				4DF7EA931971A73F0032D2E5 /* UIKit.framework in Frameworks */,
@@ -197,6 +210,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4DF8E2471972F15300306039 /* PBXTargetDependency */,
 			);
 			name = "Accelerometer Profiler";
 			productName = "Accelerometer Profiler";
@@ -335,6 +349,11 @@
 			target = 4DF7EA8A1971A73F0032D2E5 /* Accelerometer Profiler */;
 			targetProxy = 4DF7EAAB1971A73F0032D2E5 /* PBXContainerItemProxy */;
 		};
+		4DF8E2471972F15300306039 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot-CocoaTouch";
+			targetProxy = 4DF8E2461972F15300306039 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -438,13 +457,10 @@
 				GCC_PREFIX_HEADER = "Accelerometer Profiler/Accelerometer Profiler-Prefix.pch";
 				INFOPLIST_FILE = "Accelerometer Profiler/Accelerometer Profiler-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/aspyrx/Downloads/core-plot-master/build/Debug-iphoneos",
-					"$(PROJECT_DIR)",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "CorePlot/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -458,13 +474,10 @@
 				GCC_PREFIX_HEADER = "Accelerometer Profiler/Accelerometer Profiler-Prefix.pch";
 				INFOPLIST_FILE = "Accelerometer Profiler/Accelerometer Profiler-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/aspyrx/Downloads/core-plot-master/build/Debug-iphoneos",
-					"$(PROJECT_DIR)",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "CorePlot/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

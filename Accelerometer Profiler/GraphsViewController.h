@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GraphsViewController : UIViewController <CPTPlotDataSource, CPTAxisDelegate> {
-    CPTLineGraph *graph;
+    CPTXYGraph *graph;
 }
 
 @end
