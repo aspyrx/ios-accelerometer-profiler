@@ -22,7 +22,6 @@
 		4DF7EAAA1971A73F0032D2E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF7EA921971A73F0032D2E5 /* UIKit.framework */; };
 		4DF7EAB21971A73F0032D2E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DF7EAB01971A73F0032D2E5 /* InfoPlist.strings */; };
 		4DF7EAB41971A73F0032D2E5 /* Accelerometer_ProfilerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7EAB31971A73F0032D2E5 /* Accelerometer_ProfilerTests.m */; };
-		4DF8E0891972EBB500306039 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF8E0881972EBB500306039 /* libCorePlot-CocoaTouch.a */; };
 		4DF8E08E1972EF2A00306039 /* GraphsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8E08D1972EF2A00306039 /* GraphsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +32,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4DF7EA8A1971A73F0032D2E5;
 			remoteInfo = "Accelerometer Profiler";
+		};
+		4DF8E2441972F0F800306039 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DF8E23E1972F0F700306039 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -57,10 +63,11 @@
 		4DF7EAAF1971A73F0032D2E5 /* Accelerometer ProfilerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Accelerometer ProfilerTests-Info.plist"; sourceTree = "<group>"; };
 		4DF7EAB11971A73F0032D2E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4DF7EAB31971A73F0032D2E5 /* Accelerometer_ProfilerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Accelerometer_ProfilerTests.m; sourceTree = "<group>"; };
-		4DF8E0881972EBB500306039 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
-		4DF8E08B1972EC4D00306039 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		4DF8E08C1972EF2A00306039 /* GraphsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphsViewController.h; sourceTree = "<group>"; };
 		4DF8E08D1972EF2A00306039 /* GraphsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphsViewController.m; sourceTree = "<group>"; };
+		4DF8E08F1972EFB400306039 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4DF8E0911972EFBC00306039 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		4DF8E23E1972F0F700306039 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "CorePlot/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +79,6 @@
 				4DF7EA911971A73F0032D2E5 /* CoreGraphics.framework in Frameworks */,
 				4DF7EA931971A73F0032D2E5 /* UIKit.framework in Frameworks */,
 				4DF7EA8F1971A73F0032D2E5 /* Foundation.framework in Frameworks */,
-				4DF8E0891972EBB500306039 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +98,7 @@
 		4DF7EA821971A73E0032D2E5 = {
 			isa = PBXGroup;
 			children = (
-				4DF8E08A1972EC2C00306039 /* CorePlot */,
+				4DF8E23E1972F0F700306039 /* CorePlot-CocoaTouch.xcodeproj */,
 				4DF7EA941971A73F0032D2E5 /* Accelerometer Profiler */,
 				4DF7EAAD1971A73F0032D2E5 /* Accelerometer ProfilerTests */,
 				4DF7EA8D1971A73F0032D2E5 /* Frameworks */,
@@ -112,7 +118,8 @@
 		4DF7EA8D1971A73F0032D2E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4DF8E0881972EBB500306039 /* libCorePlot-CocoaTouch.a */,
+				4DF8E0911972EFBC00306039 /* Accelerate.framework */,
+				4DF8E08F1972EFB400306039 /* QuartzCore.framework */,
 				4DE6BBEF1971BB5F004A5985 /* CoreMotion.framework */,
 				4DF7EA8E1971A73F0032D2E5 /* Foundation.framework */,
 				4DF7EA901971A73F0032D2E5 /* CoreGraphics.framework */,
@@ -167,12 +174,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4DF8E08A1972EC2C00306039 /* CorePlot */ = {
+		4DF8E23F1972F0F700306039 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4DF8E08B1972EC4D00306039 /* CorePlot-CocoaTouch.h */,
+				4DF8E2451972F0F800306039 /* libCorePlot-CocoaTouch.a */,
 			);
-			name = CorePlot;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,10 +241,17 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 4DF7EA821971A73E0032D2E5;
 			productRefGroup = 4DF7EA8C1971A73F0032D2E5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4DF8E23F1972F0F700306039 /* Products */;
+					ProjectRef = 4DF8E23E1972F0F700306039 /* CorePlot-CocoaTouch.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4DF7EA8A1971A73F0032D2E5 /* Accelerometer Profiler */,
@@ -245,6 +259,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4DF8E2451972F0F800306039 /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = 4DF8E2441972F0F800306039 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4DF7EA891971A73F0032D2E5 /* Resources */ = {

@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 aspyrx. All rights reserved.
 //
 
+#import "CorePlot-CocoaTouch.h"
 #import <UIKit/UIKit.h>
 
-@interface GraphsViewController : UIViewController
+@interface GraphsViewController : UIViewController <CPTPlotDataSource, CPTAxisDelegate> {
+    CPTLineGraph *graph;
+}
 
 @end
