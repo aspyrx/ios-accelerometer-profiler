@@ -89,7 +89,7 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     accelPlotSpace.allowsUserInteraction = NO;
     gyroPlotSpace.allowsUserInteraction = NO;
     accelPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(deviceMotionRange)];
-    accelPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.5) length:CPTDecimalFromFloat(3.0)];
+    accelPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(2.0)];
     gyroPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(deviceMotionRange)];
     gyroPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-M_PI) length:CPTDecimalFromFloat(2 * M_PI)];
     
@@ -109,8 +109,8 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     accelX.minorGridLineStyle = minorGridLineStyle;
     accelX.labelAlignment = CPTAlignmentRight;
     
-    accelY.majorIntervalLength = CPTDecimalFromDouble(1.0);
-    accelY.minorTicksPerInterval = 4;
+    accelY.majorIntervalLength = CPTDecimalFromDouble(0.5);
+    accelY.minorTicksPerInterval = 1;
     accelY.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     accelY.majorGridLineStyle = majorGridLineStyle;
     accelY.minorGridLineStyle = minorGridLineStyle;
@@ -125,8 +125,8 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     gyroX.minorGridLineStyle = minorGridLineStyle;
     gyroX.labelAlignment = CPTAlignmentRight;
     
-    gyroY.majorIntervalLength = CPTDecimalFromDouble(1.0);
-    gyroY.minorTicksPerInterval = 4;
+    gyroY.majorIntervalLength = CPTDecimalFromDouble(M_PI_2);
+    gyroY.minorTicksPerInterval = 1;
     gyroY.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     gyroY.majorGridLineStyle = majorGridLineStyle;
     gyroY.minorGridLineStyle = minorGridLineStyle;
