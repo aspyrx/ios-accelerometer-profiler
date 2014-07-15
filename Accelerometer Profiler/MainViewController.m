@@ -9,16 +9,16 @@
 #import "MainViewController.h"
 #import "AppDelegate.h"
 
-static const NSTimeInterval deviceMotionUpdateIntervalMin = 0.05;
-static const NSTimeInterval deviceMotionRange = 10.0;
-static const NSTimeInterval graphReloadIntervalMin = 0.05;
+static const NSTimeInterval kDeviceMotionUpdateIntervalMin = 0.05;
+static const NSTimeInterval kDeviceMotionRange = 10.0;
+static const NSTimeInterval kGraphReloadIntervalMin = 0.05;
 
-static NSString *accelXPlotIdentifier = @"accelX";
-static NSString *accelYPlotIdentifier = @"accelY";
-static NSString *accelZPlotIdentifier = @"accelZ";
-static NSString *gyroRollPlotIdentifier = @"gyroRoll";
-static NSString *gyroPitchPlotIdentifier = @"gyroPitch";
-static NSString *gyroYawPlotIdentifier = @"gyroYaw";
+static NSString *kAccelXPlotIdentifier = @"accelX";
+static NSString *kAccelYPlotIdentifier = @"accelY";
+static NSString *kAccelZPlotIdentifier = @"accelZ";
+static NSString *kGyroRollPlotIdentifier = @"gyroRoll";
+static NSString *kGyroPitchPlotIdentifier = @"gyroPitch";
+static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 @interface MainViewController ()
 
@@ -53,7 +53,7 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     }
     
     // set initial update interval
-    [mManager setDeviceMotionUpdateInterval:deviceMotionUpdateIntervalMin];
+    [mManager setDeviceMotionUpdateInterval:kDeviceMotionUpdateIntervalMin];
     
     // initialize data array
     motionData = [NSMutableArray new];
@@ -88,9 +88,9 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     CPTXYPlotSpace *gyroPlotSpace = (CPTXYPlotSpace *)gyroGraph.defaultPlotSpace;
     accelPlotSpace.allowsUserInteraction = NO;
     gyroPlotSpace.allowsUserInteraction = NO;
-    accelPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(deviceMotionRange)];
+    accelPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(kDeviceMotionRange)];
     accelPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(2.0)];
-    gyroPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(deviceMotionRange)];
+    gyroPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(kDeviceMotionRange)];
     gyroPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-M_PI) length:CPTDecimalFromFloat(2 * M_PI)];
     
     // axes
@@ -102,9 +102,9 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     CPTXYAxisSet *accelAxisSet = (CPTXYAxisSet *)accelGraph.axisSet;
     CPTXYAxis *accelX = accelAxisSet.xAxis;
     CPTXYAxis *accelY = accelAxisSet.yAxis;
-    accelX.majorIntervalLength = CPTDecimalFromDouble(2 * deviceMotionRange);
+    accelX.majorIntervalLength = CPTDecimalFromDouble(2 * kDeviceMotionRange);
     accelX.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-    accelX.minorTicksPerInterval = 2 * ceil(deviceMotionRange) - 1;
+    accelX.minorTicksPerInterval = 2 * ceil(kDeviceMotionRange) - 1;
     accelX.majorGridLineStyle = majorGridLineStyle;
     accelX.minorGridLineStyle = minorGridLineStyle;
     accelX.labelAlignment = CPTAlignmentRight;
@@ -118,9 +118,9 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     CPTXYAxisSet *gyroAxisSet = (CPTXYAxisSet *)gyroGraph.axisSet;
     CPTXYAxis *gyroX = gyroAxisSet.xAxis;
     CPTXYAxis *gyroY = gyroAxisSet.yAxis;
-    gyroX.majorIntervalLength = CPTDecimalFromDouble(2 * deviceMotionRange);
+    gyroX.majorIntervalLength = CPTDecimalFromDouble(2 * kDeviceMotionRange);
     gyroX.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-    gyroX.minorTicksPerInterval = 2 * ceil(deviceMotionRange) - 1;
+    gyroX.minorTicksPerInterval = 2 * ceil(kDeviceMotionRange) - 1;
     gyroX.majorGridLineStyle = majorGridLineStyle;
     gyroX.minorGridLineStyle = minorGridLineStyle;
     gyroX.labelAlignment = CPTAlignmentRight;
@@ -142,9 +142,9 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     CPTScatterPlot *accelXPlot = [CPTScatterPlot new];
     CPTScatterPlot *accelYPlot = [CPTScatterPlot new];
     CPTScatterPlot *accelZPlot = [CPTScatterPlot new];
-    accelXPlot.identifier = accelXPlotIdentifier;
-    accelYPlot.identifier = accelYPlotIdentifier;
-    accelZPlot.identifier = accelZPlotIdentifier;
+    accelXPlot.identifier = kAccelXPlotIdentifier;
+    accelYPlot.identifier = kAccelYPlotIdentifier;
+    accelZPlot.identifier = kAccelZPlotIdentifier;
     accelXPlot.dataSource = self;
     accelYPlot.dataSource = self;
     accelZPlot.dataSource = self;
@@ -158,9 +158,9 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
     CPTScatterPlot *gyroRollPlot = [CPTScatterPlot new];
     CPTScatterPlot *gyroPitchPlot = [CPTScatterPlot new];
     CPTScatterPlot *gyroYawPlot = [CPTScatterPlot new];
-    gyroRollPlot.identifier = gyroRollPlotIdentifier;
-    gyroPitchPlot.identifier = gyroPitchPlotIdentifier;
-    gyroYawPlot.identifier = gyroYawPlotIdentifier;
+    gyroRollPlot.identifier = kGyroRollPlotIdentifier;
+    gyroPitchPlot.identifier = kGyroPitchPlotIdentifier;
+    gyroYawPlot.identifier = kGyroYawPlotIdentifier;
     gyroRollPlot.dataSource = self;
     gyroPitchPlot.dataSource = self;
     gyroYawPlot.dataSource = self;
@@ -185,17 +185,17 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
         CMDeviceMotion *first = (CMDeviceMotion *)[motionData firstObject];
         return motion.timestamp - first.timestamp;
     } else {
-        if ([identifier isEqualToString:accelXPlotIdentifier]) {
+        if ([identifier isEqualToString:kAccelXPlotIdentifier]) {
             return motion.userAcceleration.x;
-        } else if ([identifier isEqualToString:accelYPlotIdentifier]) {
+        } else if ([identifier isEqualToString:kAccelYPlotIdentifier]) {
             return motion.userAcceleration.y;
-        } else if ([identifier isEqualToString:accelZPlotIdentifier]) {
+        } else if ([identifier isEqualToString:kAccelZPlotIdentifier]) {
             return motion.userAcceleration.z;
-        } else if ([identifier isEqualToString:gyroRollPlotIdentifier]) {
+        } else if ([identifier isEqualToString:kGyroRollPlotIdentifier]) {
             return motion.attitude.roll;
-        } else if ([identifier isEqualToString:gyroPitchPlotIdentifier]) {
+        } else if ([identifier isEqualToString:kGyroPitchPlotIdentifier]) {
             return motion.attitude.pitch;
-        } else if ([identifier isEqualToString:gyroYawPlotIdentifier]) {
+        } else if ([identifier isEqualToString:kGyroYawPlotIdentifier]) {
             return motion.attitude.yaw;
         }
     }
@@ -234,14 +234,14 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
                 
                 [motionData addObject:motion];
                 CMDeviceMotion *d = [motionData firstObject];
-                while (motion.timestamp - d.timestamp > deviceMotionRange) {
+                while (motion.timestamp - d.timestamp > kDeviceMotionRange) {
                     [motionData removeObjectAtIndex:0];
                     d = [motionData firstObject];
                 }
             }];
             
             // start updating graph
-            graphReloadTimer = [NSTimer timerWithTimeInterval:MAX(graphReloadIntervalMin, deviceMotionUpdateInterval) target:self selector:@selector(reloadGraphs) userInfo:nil repeats:YES];
+            graphReloadTimer = [NSTimer timerWithTimeInterval:MAX(kGraphReloadIntervalMin, deviceMotionUpdateInterval) target:self selector:@selector(reloadGraphs) userInfo:nil repeats:YES];
             [[NSRunLoop currentRunLoop] addTimer:graphReloadTimer forMode:NSDefaultRunLoopMode];
         }
     } else {
@@ -257,7 +257,7 @@ static NSString *gyroYawPlotIdentifier = @"gyroYaw";
 - (void)setDeviceMotionUpdateInterval:(NSTimeInterval)interval {
     CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
     
-    deviceMotionUpdateInterval = MAX(deviceMotionUpdateIntervalMin, interval);
+    deviceMotionUpdateInterval = MAX(kDeviceMotionUpdateIntervalMin, interval);
     [mManager setDeviceMotionUpdateInterval:deviceMotionUpdateInterval];
 }
 
