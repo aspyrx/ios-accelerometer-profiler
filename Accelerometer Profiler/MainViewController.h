@@ -8,18 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
+#import "CorePlot-CocoaTouch.h"
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController <CPTPlotDataSource> {
+    CPTXYGraph *accelGraph;
+    CPTXYGraph *gyroGraph;
+    
+    NSMutableArray *motionData;
+}
 
-@property (weak, nonatomic) IBOutlet UILabel *xValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *yValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *zValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rollValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pitchValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *yawValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *accelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gyroLabel;
+@property (weak, nonatomic) IBOutlet CPTGraphHostingView *accelGraphView;
+@property (weak, nonatomic) IBOutlet CPTGraphHostingView *gyroGraphView;
+@property (weak, nonatomic) IBOutlet UILabel *updateIntervalLabel;
 
-- (IBAction)switchValueChanged:(UISwitch *)sender;
+- (IBAction)updatesSwitchValueChanged:(UISwitch *)sender;
+- (IBAction)updateIntervalValueChanged:(UIStepper *)sender;
 
 @end
