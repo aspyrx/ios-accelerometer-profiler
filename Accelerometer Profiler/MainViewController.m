@@ -27,6 +27,7 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 @implementation MainViewController {
     NSTimeInterval deviceMotionUpdateInterval;
     NSTimer *graphReloadTimer;
+    BOOL isRecording;
 }
 
 /*
@@ -203,10 +204,23 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     return 0;
 }
 
+# pragma mark - RecordingStateDelegate
+
+- (void)shouldStartRecording{
+    if (!isRecording) {
+        [self setRecordingState:YES];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 # pragma mark - Interface methods
 
-- (IBAction)updatesSwitchValueChanged:(UISwitch *)sender {
-    [self setDeviceMotionActive:sender.isOn];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"displayRecordDataModal"]) {
+        RecordDataViewController *vc = (RecordDataViewController *)segue.destinationViewController;
+        [vc setDelegate:self];
+    }
 }
 
 - (IBAction)updateIntervalValueChanged:(UIStepper *)sender {
@@ -221,10 +235,10 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     [gyroGraph reloadData];
 }
 
-- (void)setDeviceMotionActive:(BOOL)active {
+- (void)setRecordingState:(BOOL)shouldRecord {
     CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
     
-    if (active) {
+    if (shouldRecord) {
         if (![mManager isDeviceMotionActive] && [mManager isDeviceMotionAvailable]) {
             [mManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXTrueNorthZVertical toQueue:[NSOperationQueue currentQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
                 if (error != nil) {
@@ -240,6 +254,8 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
                 }
             }];
             
+            isRecording = true;
+            
             // start updating graph
             graphReloadTimer = [NSTimer timerWithTimeInterval:MAX(kGraphReloadIntervalMin, deviceMotionUpdateInterval) target:self selector:@selector(reloadGraphs) userInfo:nil repeats:YES];
             [[NSRunLoop currentRunLoop] addTimer:graphReloadTimer forMode:NSDefaultRunLoopMode];
@@ -248,6 +264,8 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
         if ([mManager isDeviceMotionActive]) {
             [mManager stopDeviceMotionUpdates];
         }
+        
+        isRecording = false;
         
         // stop updating graph
         [graphReloadTimer invalidate];

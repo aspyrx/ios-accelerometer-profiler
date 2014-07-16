@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
 #import "CorePlot-CocoaTouch.h"
+#import "RecordDataViewController.h"
 
-@interface MainViewController : UIViewController <CPTPlotDataSource> {
+@interface MainViewController : UIViewController <RecordingStartDelegate, CPTPlotDataSource> {
     CPTXYGraph *accelGraph;
     CPTXYGraph *gyroGraph;
     
@@ -23,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *gyroGraphView;
 @property (weak, nonatomic) IBOutlet UILabel *updateIntervalLabel;
 
-- (IBAction)updatesSwitchValueChanged:(UISwitch *)sender;
 - (IBAction)updateIntervalValueChanged:(UIStepper *)sender;
 
 @end
