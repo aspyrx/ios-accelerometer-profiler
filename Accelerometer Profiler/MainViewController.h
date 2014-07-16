@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
 #import "CorePlot-CocoaTouch.h"
-#import "RecordDataViewController.h"
+#import "Profile.h"
 
-@interface MainViewController : UIViewController <RecordingStartDelegate, CPTPlotDataSource> {
+@interface MainViewController : UIViewController <ProfileRecorder, CPTPlotDataSource> {
     CPTXYGraph *accelGraph;
     CPTXYGraph *gyroGraph;
+    NSTimer *graphReloadTimer;
     
     NSMutableArray *motionData;
+    NSTimeInterval deviceMotionUpdateInterval;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *accelLabel;

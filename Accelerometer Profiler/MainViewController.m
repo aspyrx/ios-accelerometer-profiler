@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "AppDelegate.h"
+#import "SaveViewController.h"
 
 static const NSTimeInterval kDeviceMotionUpdateIntervalMin = 0.05;
 static const NSTimeInterval kDeviceMotionRange = 10.0;
@@ -24,22 +25,9 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 @end
 
-@implementation MainViewController {
-    NSTimeInterval deviceMotionUpdateInterval;
-    NSTimer *graphReloadTimer;
-    BOOL isRecording;
-}
+@implementation MainViewController
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+@synthesize isRecording;
 
 # pragma mark - UIViewController
 
@@ -204,72 +192,76 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     return 0;
 }
 
-# pragma mark - RecordingStateDelegate
+# pragma mark - ProfileRecorder
 
-- (void)shouldStartRecording{
-    if (!isRecording) {
-        [self setRecordingState:YES];
+- (void)startRecording {
+    CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
+    
+    if (![mManager isDeviceMotionActive] && [mManager isDeviceMotionAvailable]) {
+        [mManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXTrueNorthZVertical toQueue:[NSOperationQueue currentQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
+            if (error != nil) {
+                NSLog(@"Error: %@", error);
+                return;
+            }
+            
+            [motionData addObject:motion];
+            CMDeviceMotion *d = [motionData firstObject];
+            while (motion.timestamp - d.timestamp > kDeviceMotionRange) {
+                [motionData removeObjectAtIndex:0];
+                d = [motionData firstObject];
+            }
+        }];
+        
+        // start updating graph
+        graphReloadTimer = [NSTimer timerWithTimeInterval:MAX(kGraphReloadIntervalMin, deviceMotionUpdateInterval) target:self selector:@selector(reloadGraphs) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:graphReloadTimer forMode:NSDefaultRunLoopMode];
     }
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    isRecording = YES;
 }
 
-# pragma mark - Interface methods
+- (void)stopRecording {
+    CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
+    
+    if ([mManager isDeviceMotionActive]) {
+        [mManager stopDeviceMotionUpdates];
+    }
+    
+    // stop updating graph
+    [graphReloadTimer invalidate];
+    
+    isRecording = NO;
+}
+
+- (void)saveRecordingWithProfile:(Profile *)profile {
+    if (!profile) {
+        return;
+    }
+    
+    NSLog(@"%@ | %@ | %d", profile.name, profile.notes, profile.transportMode);
+}
+
+# pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"displayRecordDataModal"]) {
-        RecordDataViewController *vc = (RecordDataViewController *)segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"displaySaveModal"]) {
+        SaveViewController *vc = (SaveViewController *)segue.destinationViewController;
         [vc setDelegate:self];
     }
 }
+
+#pragma mark - Interface methods
 
 - (IBAction)updateIntervalValueChanged:(UIStepper *)sender {
     self.updateIntervalLabel.text = [NSString stringWithFormat:@"%.0f ms", sender.value];
     [self setDeviceMotionUpdateInterval:(sender.value / 1000)];
 }
 
-# pragma mark - Private methods
+# pragma mark -
 
 - (void)reloadGraphs {
     [accelGraph reloadData];
     [gyroGraph reloadData];
-}
-
-- (void)setRecordingState:(BOOL)shouldRecord {
-    CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
-    
-    if (shouldRecord) {
-        if (![mManager isDeviceMotionActive] && [mManager isDeviceMotionAvailable]) {
-            [mManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXTrueNorthZVertical toQueue:[NSOperationQueue currentQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
-                if (error != nil) {
-                    NSLog(@"Error: %@", error);
-                    return;
-                }
-                
-                [motionData addObject:motion];
-                CMDeviceMotion *d = [motionData firstObject];
-                while (motion.timestamp - d.timestamp > kDeviceMotionRange) {
-                    [motionData removeObjectAtIndex:0];
-                    d = [motionData firstObject];
-                }
-            }];
-            
-            isRecording = true;
-            
-            // start updating graph
-            graphReloadTimer = [NSTimer timerWithTimeInterval:MAX(kGraphReloadIntervalMin, deviceMotionUpdateInterval) target:self selector:@selector(reloadGraphs) userInfo:nil repeats:YES];
-            [[NSRunLoop currentRunLoop] addTimer:graphReloadTimer forMode:NSDefaultRunLoopMode];
-        }
-    } else {
-        if ([mManager isDeviceMotionActive]) {
-            [mManager stopDeviceMotionUpdates];
-        }
-        
-        isRecording = false;
-        
-        // stop updating graph
-        [graphReloadTimer invalidate];
-    }
 }
 
 - (void)setDeviceMotionUpdateInterval:(NSTimeInterval)interval {

@@ -8,11 +8,15 @@
         <!--Navigation Controller-->
         <scene sceneID="EcC-Mc-xKg">
             <objects>
-                <navigationController definesPresentationContext="YES" id="o0t-4Z-PNq" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" toolbarHidden="NO" id="o0t-4Z-PNq" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="sjl-QV-gmv">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="dHs-m7-NOZ">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="vji-ry-M2C" kind="relationship" relationship="rootViewController" id="TRv-Me-FK2"/>
                     </connections>
@@ -30,42 +34,42 @@
                         <viewControllerLayoutGuide type="bottom" id="zJE-LI-7jY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8wj-pF-pr9">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accelerometer: unavailable" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuh-DA-13e">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accelerometer: unavailable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuh-DA-13e">
                                 <rect key="frame" x="57" y="20" width="207" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gyroscope: unavailable" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmS-dF-FHW">
-                                <rect key="frame" x="70" y="238" width="180" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gyroscope: unavailable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmS-dF-FHW">
+                                <rect key="frame" x="70" y="216" width="180" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xh-DE-GxC" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="20" y="49" width="280" height="181"/>
+                                <rect key="frame" x="20" y="49" width="280" height="159"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVj-fe-uUb" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="20" y="267" width="280" height="180"/>
+                                <rect key="frame" x="20" y="245" width="280" height="158"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minimumValue="50" maximumValue="1000" stepValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="fyt-Vd-NLW">
-                                <rect key="frame" x="206" y="455" width="94" height="29"/>
+                                <rect key="frame" x="20" y="411" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <action selector="updateIntervalValueChanged:" destination="vji-ry-M2C" eventType="valueChanged" id="JKB-TT-6d4"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update interval (ms)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsG-Xw-1qy">
-                                <rect key="frame" x="20" y="459" width="178" height="21"/>
+                                <rect key="frame" x="122" y="415" width="178" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -81,24 +85,27 @@
                             <constraint firstItem="OVj-fe-uUb" firstAttribute="top" secondItem="GmS-dF-FHW" secondAttribute="bottom" constant="8" symbolic="YES" id="RjN-ai-w2D"/>
                             <constraint firstItem="6xh-DE-GxC" firstAttribute="leading" secondItem="8wj-pF-pr9" secondAttribute="leading" constant="20" symbolic="YES" id="Zeb-9U-Udn"/>
                             <constraint firstAttribute="centerX" secondItem="GmS-dF-FHW" secondAttribute="centerX" id="Zlr-qr-bZh"/>
+                            <constraint firstItem="VsG-Xw-1qy" firstAttribute="leading" secondItem="fyt-Vd-NLW" secondAttribute="trailing" constant="8" symbolic="YES" id="bhK-8e-iEr"/>
                             <constraint firstItem="GmS-dF-FHW" firstAttribute="top" secondItem="6xh-DE-GxC" secondAttribute="bottom" constant="8" symbolic="YES" id="cwq-iu-09X"/>
+                            <constraint firstAttribute="trailing" secondItem="VsG-Xw-1qy" secondAttribute="trailing" constant="20" symbolic="YES" id="dSi-K3-qtP"/>
                             <constraint firstItem="zJE-LI-7jY" firstAttribute="top" secondItem="fyt-Vd-NLW" secondAttribute="bottom" constant="20" id="dWJ-qa-EJj"/>
-                            <constraint firstAttribute="trailing" secondItem="fyt-Vd-NLW" secondAttribute="trailing" constant="20" symbolic="YES" id="dbz-As-loL"/>
-                            <constraint firstItem="VsG-Xw-1qy" firstAttribute="leading" secondItem="8wj-pF-pr9" secondAttribute="leading" constant="20" symbolic="YES" id="gwu-Y1-Il8"/>
                             <constraint firstItem="VsG-Xw-1qy" firstAttribute="centerY" secondItem="fyt-Vd-NLW" secondAttribute="centerY" id="jm5-wY-oMT"/>
                             <constraint firstItem="OVj-fe-uUb" firstAttribute="height" secondItem="6xh-DE-GxC" secondAttribute="height" id="n8a-HR-Gdt"/>
-                            <constraint firstItem="fyt-Vd-NLW" firstAttribute="leading" secondItem="VsG-Xw-1qy" secondAttribute="trailing" constant="8" symbolic="YES" id="qik-UF-1FJ"/>
                             <constraint firstAttribute="trailing" secondItem="6xh-DE-GxC" secondAttribute="trailing" constant="20" symbolic="YES" id="tcW-UX-iTX"/>
+                            <constraint firstItem="fyt-Vd-NLW" firstAttribute="leading" secondItem="8wj-pF-pr9" secondAttribute="leading" constant="20" symbolic="YES" id="toF-sw-elt"/>
                             <constraint firstItem="fyt-Vd-NLW" firstAttribute="top" secondItem="OVj-fe-uUb" secondAttribute="bottom" constant="8" symbolic="YES" id="zov-hO-QiR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sensors" id="zpj-eq-ta7">
-                        <barButtonItem key="rightBarButtonItem" title="Record" id="80i-fh-hkL">
+                    <toolbarItems>
+                        <barButtonItem title="Save" id="80i-fh-hkL">
                             <connections>
-                                <segue destination="HQg-y4-PdJ" kind="modal" identifier="displayRecordDataModal" id="rgr-dl-xKl"/>
+                                <segue destination="HQg-y4-PdJ" kind="modal" identifier="displaySaveModal" id="rgr-dl-xKl"/>
                             </connections>
                         </barButtonItem>
-                    </navigationItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="T08-rZ-Fc3"/>
+                        <barButtonItem title="Record" id="9Oy-Uw-Gxu"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Sensors" id="zpj-eq-ta7"/>
                     <connections>
                         <outlet property="accelGraphView" destination="6xh-DE-GxC" id="Ylz-Uc-CD2"/>
                         <outlet property="accelLabel" destination="xuh-DA-13e" id="AJS-ia-fYZ"/>
@@ -111,10 +118,10 @@
             </objects>
             <point key="canvasLocation" x="511" y="24"/>
         </scene>
-        <!--Record Data View Controller-->
+        <!--Save View Controller-->
         <scene sceneID="tIa-yi-rpy">
             <objects>
-                <viewController id="HQg-y4-PdJ" customClass="RecordDataViewController" sceneMemberID="viewController">
+                <viewController id="HQg-y4-PdJ" customClass="SaveViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vv4-qD-FoX"/>
                         <viewControllerLayoutGuide type="bottom" id="5K0-N5-GZQ"/>
@@ -131,37 +138,95 @@
                                     <outlet property="delegate" destination="HQg-y4-PdJ" id="mdW-Tc-Ve5"/>
                                 </connections>
                             </pickerView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QwN-Nq-Xk8">
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QwN-Nq-Xk8">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Record Data" id="56N-Xe-9sY">
+                                    <navigationItem title="Save Recording" id="56N-Xe-9sY">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="g9d-Cg-cZf">
                                             <connections>
                                                 <action selector="cancelButtonPressed:" destination="HQg-y4-PdJ" id="jt1-s2-qHJ"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="rhv-Zb-YeY">
+                                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="rhv-Zb-YeY">
                                             <connections>
-                                                <action selector="doneButtonPressed:" destination="HQg-y4-PdJ" id="47r-zQ-55Q"/>
+                                                <action selector="saveButtonPressed:" destination="HQg-y4-PdJ" id="bCq-il-7Po"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transport Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbe-Lz-q3Z">
+                                <rect key="frame" x="20" y="385" width="122" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recording Name (required)" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xd0-y9-iZH">
+                                <rect key="frame" x="20" y="84" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="next"/>
+                                <connections>
+                                    <action selector="recordingNameEditingChanged:" destination="HQg-y4-PdJ" eventType="editingChanged" id="BMU-Ah-e5C"/>
+                                    <outlet property="delegate" destination="HQg-y4-PdJ" id="jFg-7s-JUc"/>
+                                </connections>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="4tz-c2-w2c">
+                                <rect key="frame" x="20" y="142" width="280" height="235"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="HQg-y4-PdJ" id="W3F-GO-liz"/>
+                                </connections>
+                            </textView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording Notes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spJ-17-DEo">
+                                <rect key="frame" x="20" y="113" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="5K0-N5-GZQ" firstAttribute="top" secondItem="Npl-eJ-paB" secondAttribute="bottom" id="2ij-be-Leh"/>
+                            <constraint firstAttribute="trailing" secondItem="4tz-c2-w2c" secondAttribute="trailing" constant="20" symbolic="YES" id="9QB-b8-ay3"/>
                             <constraint firstItem="QwN-Nq-Xk8" firstAttribute="leading" secondItem="CUi-v9-Y8W" secondAttribute="leading" id="CD8-6i-ogy"/>
-                            <constraint firstItem="5K0-N5-GZQ" firstAttribute="top" secondItem="Npl-eJ-paB" secondAttribute="bottom" id="Ef6-QP-GAO"/>
+                            <constraint firstItem="spJ-17-DEo" firstAttribute="top" secondItem="xd0-y9-iZH" secondAttribute="bottom" constant="8" symbolic="YES" id="CKQ-gg-YOG"/>
+                            <constraint firstItem="spJ-17-DEo" firstAttribute="leading" secondItem="CUi-v9-Y8W" secondAttribute="leading" constant="20" symbolic="YES" id="DlD-SV-0PP"/>
+                            <constraint firstItem="4tz-c2-w2c" firstAttribute="leading" secondItem="CUi-v9-Y8W" secondAttribute="leading" constant="20" symbolic="YES" id="M2o-rZ-APB"/>
+                            <constraint firstItem="4tz-c2-w2c" firstAttribute="top" secondItem="spJ-17-DEo" secondAttribute="bottom" constant="8" symbolic="YES" id="O8O-HS-j1T"/>
+                            <constraint firstAttribute="trailing" secondItem="xd0-y9-iZH" secondAttribute="trailing" constant="20" symbolic="YES" id="V95-PV-YmG"/>
+                            <constraint firstItem="xd0-y9-iZH" firstAttribute="top" secondItem="QwN-Nq-Xk8" secondAttribute="bottom" constant="20" id="WK5-EI-JCY"/>
                             <constraint firstAttribute="trailing" secondItem="Npl-eJ-paB" secondAttribute="trailing" id="WPb-yD-fKQ"/>
+                            <constraint firstItem="rbe-Lz-q3Z" firstAttribute="leading" secondItem="CUi-v9-Y8W" secondAttribute="leading" constant="20" symbolic="YES" id="Zq4-6n-8Wl"/>
+                            <constraint firstAttribute="trailing" secondItem="spJ-17-DEo" secondAttribute="trailing" constant="20" symbolic="YES" id="asb-HE-o0g"/>
                             <constraint firstItem="QwN-Nq-Xk8" firstAttribute="top" secondItem="Vv4-qD-FoX" secondAttribute="bottom" id="jZC-gv-Utj"/>
+                            <constraint firstItem="xd0-y9-iZH" firstAttribute="leading" secondItem="CUi-v9-Y8W" secondAttribute="leading" constant="20" symbolic="YES" id="jjj-8t-f7N"/>
                             <constraint firstAttribute="trailing" secondItem="QwN-Nq-Xk8" secondAttribute="trailing" id="mlq-rT-W7g"/>
                             <constraint firstItem="Npl-eJ-paB" firstAttribute="leading" secondItem="CUi-v9-Y8W" secondAttribute="leading" id="sWe-JC-duE"/>
+                            <constraint firstItem="rbe-Lz-q3Z" firstAttribute="top" secondItem="4tz-c2-w2c" secondAttribute="bottom" constant="8" symbolic="YES" id="sZE-Ds-mFR"/>
+                            <constraint firstItem="Npl-eJ-paB" firstAttribute="top" secondItem="rbe-Lz-q3Z" secondAttribute="bottom" id="xch-X6-p5k"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="EjO-dU-z60" appends="YES" id="VFk-gx-lC6"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="nameTextField" destination="xd0-y9-iZH" id="OCC-de-fK9"/>
+                        <outlet property="notesTextView" destination="4tz-c2-w2c" id="IaG-LV-c16"/>
+                        <outlet property="saveButton" destination="rhv-Zb-YeY" id="2ld-UE-zay"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWc-l8-TFp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="EjO-dU-z60">
+                    <connections>
+                        <action selector="tapViewTapped:" destination="HQg-y4-PdJ" id="kc3-wT-6v0"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1056" y="24"/>
         </scene>

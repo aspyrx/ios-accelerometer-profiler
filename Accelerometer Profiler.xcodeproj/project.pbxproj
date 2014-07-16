@@ -25,7 +25,8 @@
 		4DF8E2481972F17500306039 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF8E2451972F0F800306039 /* libCorePlot-CocoaTouch.a */; };
 		4DF8E2491972F22000306039 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF8E08F1972EFB400306039 /* QuartzCore.framework */; };
 		4DF8E24A1972F22800306039 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF8E0911972EFBC00306039 /* Accelerate.framework */; };
-		4DF8E24F1975F7E600306039 /* RecordDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8E24E1975F7E600306039 /* RecordDataViewController.m */; };
+		4DF8E24F1975F7E600306039 /* SaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8E24E1975F7E600306039 /* SaveViewController.m */; };
+		4DF8E2531976229600306039 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8E2521976229600306039 /* Profile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,8 +77,10 @@
 		4DF8E08F1972EFB400306039 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4DF8E0911972EFBC00306039 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		4DF8E23E1972F0F700306039 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "CorePlot/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
-		4DF8E24D1975F7E600306039 /* RecordDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordDataViewController.h; sourceTree = "<group>"; };
-		4DF8E24E1975F7E600306039 /* RecordDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordDataViewController.m; sourceTree = "<group>"; };
+		4DF8E24D1975F7E600306039 /* SaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveViewController.h; sourceTree = "<group>"; };
+		4DF8E24E1975F7E600306039 /* SaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveViewController.m; sourceTree = "<group>"; };
+		4DF8E2511976229600306039 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
+		4DF8E2521976229600306039 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,13 +148,15 @@
 		4DF7EA941971A73F0032D2E5 /* Accelerometer Profiler */ = {
 			isa = PBXGroup;
 			children = (
+				4DF8E2511976229600306039 /* Profile.h */,
+				4DF8E2521976229600306039 /* Profile.m */,
 				4DE6BBEA1971B2A4004A5985 /* StoryboardiPhone.storyboard */,
 				4DF7EA9D1971A73F0032D2E5 /* AppDelegate.h */,
 				4DF7EA9E1971A73F0032D2E5 /* AppDelegate.m */,
 				4DE6BBEC1971B7A8004A5985 /* MainViewController.h */,
 				4DE6BBED1971B7A8004A5985 /* MainViewController.m */,
-				4DF8E24D1975F7E600306039 /* RecordDataViewController.h */,
-				4DF8E24E1975F7E600306039 /* RecordDataViewController.m */,
+				4DF8E24D1975F7E600306039 /* SaveViewController.h */,
+				4DF8E24E1975F7E600306039 /* SaveViewController.m */,
 				4DF7EAA01971A73F0032D2E5 /* Images.xcassets */,
 				4DF7EA951971A73F0032D2E5 /* Supporting Files */,
 			);
@@ -327,7 +332,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DF7EA9F1971A73F0032D2E5 /* AppDelegate.m in Sources */,
-				4DF8E24F1975F7E600306039 /* RecordDataViewController.m in Sources */,
+				4DF8E2531976229600306039 /* Profile.m in Sources */,
+				4DF8E24F1975F7E600306039 /* SaveViewController.m in Sources */,
 				4DE6BBEE1971B7A8004A5985 /* MainViewController.m in Sources */,
 				4DF7EA9B1971A73F0032D2E5 /* main.m in Sources */,
 			);
