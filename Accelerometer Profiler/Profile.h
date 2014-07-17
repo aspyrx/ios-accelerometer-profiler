@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class CMDeviceMotion;
+
 typedef enum {
     TransportModeWalk = 0,
     TransportModeBicycle,
@@ -18,11 +20,16 @@ typedef enum {
     TRANSPORT_MODE_ENUM_SIZE
 } transport_mode_t;
 
-@interface Profile : NSObject
+@interface Profile : NSObject {
+    NSMutableData *data;
+}
 
 @property NSString *name;
 @property NSString *notes;
 @property transport_mode_t transportMode;
+@property (readonly) NSData *data;
+
+- (void)addMotionData:(CMDeviceMotion *)motion;
 
 + (NSString *)nameForTransportMode:(transport_mode_t)mode;
 
@@ -34,6 +41,6 @@ typedef enum {
 
 - (void)startRecording;
 - (void)stopRecording;
-- (void)saveRecordingWithProfile:(Profile *)profile;
+- (void)saveRecordingWithName:(NSString *)name notes:(NSString *)notes transportMode:(transport_mode_t)transportMode;
 
 @end

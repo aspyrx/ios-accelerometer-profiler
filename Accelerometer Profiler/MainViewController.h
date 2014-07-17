@@ -14,10 +14,11 @@
 @interface MainViewController : UIViewController <ProfileRecorder, CPTPlotDataSource> {
     CPTXYGraph *accelGraph;
     CPTXYGraph *gyroGraph;
-    NSTimer *graphReloadTimer;
-    
-    NSMutableArray *motionData;
     NSTimeInterval deviceMotionUpdateInterval;
+    CMMotionManager *mManager;
+    Profile *profile;
+    NSMutableArray *graphData;
+    NSLock *graphDataLock;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *accelLabel;
@@ -25,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *accelGraphView;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *gyroGraphView;
 @property (weak, nonatomic) IBOutlet UILabel *updateIntervalLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *recordButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 - (IBAction)updateIntervalValueChanged:(UIStepper *)sender;
 

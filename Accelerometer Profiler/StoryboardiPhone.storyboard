@@ -62,16 +62,26 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minimumValue="50" maximumValue="1000" stepValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="fyt-Vd-NLW">
-                                <rect key="frame" x="20" y="411" width="94" height="29"/>
+                                <rect key="frame" x="206" y="411" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <action selector="updateIntervalValueChanged:" destination="vji-ry-M2C" eventType="valueChanged" id="JKB-TT-6d4"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update interval (ms)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsG-Xw-1qy">
-                                <rect key="frame" x="122" y="415" width="178" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50 ms" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsG-Xw-1qy">
+                                <rect key="frame" x="124" y="415" width="74" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update freq:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abL-bT-0Lx">
+                                <rect key="frame" x="20" y="415" width="96" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="j8H-yx-D5r"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -80,30 +90,36 @@
                             <constraint firstItem="xuh-DA-13e" firstAttribute="top" secondItem="Lyv-xs-Eln" secondAttribute="bottom" constant="20" id="0Mr-9e-4jB"/>
                             <constraint firstAttribute="trailing" secondItem="OVj-fe-uUb" secondAttribute="trailing" constant="20" symbolic="YES" id="4pe-ad-zhv"/>
                             <constraint firstAttribute="centerX" secondItem="xuh-DA-13e" secondAttribute="centerX" id="6hk-Ck-Syv"/>
+                            <constraint firstItem="abL-bT-0Lx" firstAttribute="leading" secondItem="8wj-pF-pr9" secondAttribute="leading" constant="20" symbolic="YES" id="IKw-Kp-LOM"/>
                             <constraint firstItem="6xh-DE-GxC" firstAttribute="top" secondItem="xuh-DA-13e" secondAttribute="bottom" constant="8" symbolic="YES" id="Lc8-Ec-Rax"/>
                             <constraint firstItem="OVj-fe-uUb" firstAttribute="leading" secondItem="8wj-pF-pr9" secondAttribute="leading" constant="20" symbolic="YES" id="N6e-X1-1Hd"/>
                             <constraint firstItem="OVj-fe-uUb" firstAttribute="top" secondItem="GmS-dF-FHW" secondAttribute="bottom" constant="8" symbolic="YES" id="RjN-ai-w2D"/>
                             <constraint firstItem="6xh-DE-GxC" firstAttribute="leading" secondItem="8wj-pF-pr9" secondAttribute="leading" constant="20" symbolic="YES" id="Zeb-9U-Udn"/>
                             <constraint firstAttribute="centerX" secondItem="GmS-dF-FHW" secondAttribute="centerX" id="Zlr-qr-bZh"/>
-                            <constraint firstItem="VsG-Xw-1qy" firstAttribute="leading" secondItem="fyt-Vd-NLW" secondAttribute="trailing" constant="8" symbolic="YES" id="bhK-8e-iEr"/>
+                            <constraint firstAttribute="trailing" secondItem="fyt-Vd-NLW" secondAttribute="trailing" constant="20" symbolic="YES" id="aMM-2g-Cv9"/>
+                            <constraint firstItem="VsG-Xw-1qy" firstAttribute="leading" secondItem="abL-bT-0Lx" secondAttribute="trailing" constant="8" symbolic="YES" id="cFt-7d-DZl"/>
                             <constraint firstItem="GmS-dF-FHW" firstAttribute="top" secondItem="6xh-DE-GxC" secondAttribute="bottom" constant="8" symbolic="YES" id="cwq-iu-09X"/>
-                            <constraint firstAttribute="trailing" secondItem="VsG-Xw-1qy" secondAttribute="trailing" constant="20" symbolic="YES" id="dSi-K3-qtP"/>
                             <constraint firstItem="zJE-LI-7jY" firstAttribute="top" secondItem="fyt-Vd-NLW" secondAttribute="bottom" constant="20" id="dWJ-qa-EJj"/>
                             <constraint firstItem="VsG-Xw-1qy" firstAttribute="centerY" secondItem="fyt-Vd-NLW" secondAttribute="centerY" id="jm5-wY-oMT"/>
                             <constraint firstItem="OVj-fe-uUb" firstAttribute="height" secondItem="6xh-DE-GxC" secondAttribute="height" id="n8a-HR-Gdt"/>
+                            <constraint firstItem="VsG-Xw-1qy" firstAttribute="baseline" secondItem="abL-bT-0Lx" secondAttribute="baseline" id="oAt-Qb-xL7"/>
                             <constraint firstAttribute="trailing" secondItem="6xh-DE-GxC" secondAttribute="trailing" constant="20" symbolic="YES" id="tcW-UX-iTX"/>
-                            <constraint firstItem="fyt-Vd-NLW" firstAttribute="leading" secondItem="8wj-pF-pr9" secondAttribute="leading" constant="20" symbolic="YES" id="toF-sw-elt"/>
+                            <constraint firstItem="fyt-Vd-NLW" firstAttribute="leading" secondItem="VsG-Xw-1qy" secondAttribute="trailing" constant="8" symbolic="YES" id="wsA-gs-ury"/>
                             <constraint firstItem="fyt-Vd-NLW" firstAttribute="top" secondItem="OVj-fe-uUb" secondAttribute="bottom" constant="8" symbolic="YES" id="zov-hO-QiR"/>
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Save" id="80i-fh-hkL">
+                        <barButtonItem title="Record" id="9Oy-Uw-Gxu">
+                            <connections>
+                                <action selector="recordButtonPressed:" destination="vji-ry-M2C" id="ZhB-ln-9dy"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="T08-rZ-Fc3"/>
+                        <barButtonItem enabled="NO" systemItem="save" id="80i-fh-hkL">
                             <connections>
                                 <segue destination="HQg-y4-PdJ" kind="modal" identifier="displaySaveModal" id="rgr-dl-xKl"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="T08-rZ-Fc3"/>
-                        <barButtonItem title="Record" id="9Oy-Uw-Gxu"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Sensors" id="zpj-eq-ta7"/>
                     <connections>
@@ -111,6 +127,8 @@
                         <outlet property="accelLabel" destination="xuh-DA-13e" id="AJS-ia-fYZ"/>
                         <outlet property="gyroGraphView" destination="OVj-fe-uUb" id="GgA-zF-GLG"/>
                         <outlet property="gyroLabel" destination="GmS-dF-FHW" id="CMh-DE-zLX"/>
+                        <outlet property="recordButton" destination="9Oy-Uw-Gxu" id="42W-xx-Kuf"/>
+                        <outlet property="saveButton" destination="80i-fh-hkL" id="iWf-G1-7bY"/>
                         <outlet property="updateIntervalLabel" destination="VsG-Xw-1qy" id="oPI-aq-dlQ"/>
                     </connections>
                 </viewController>
@@ -219,6 +237,7 @@
                         <outlet property="nameTextField" destination="xd0-y9-iZH" id="OCC-de-fK9"/>
                         <outlet property="notesTextView" destination="4tz-c2-w2c" id="IaG-LV-c16"/>
                         <outlet property="saveButton" destination="rhv-Zb-YeY" id="2ld-UE-zay"/>
+                        <outlet property="transportModePickerView" destination="Npl-eJ-paB" id="PI6-s5-KNT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWc-l8-TFp" userLabel="First Responder" sceneMemberID="firstResponder"/>

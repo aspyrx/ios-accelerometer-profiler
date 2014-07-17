@@ -14,13 +14,12 @@
 
 @implementation SaveViewController
 
-@synthesize delegate, profile;
+@synthesize delegate;
 
 - (void)viewWillAppear:(BOOL)animated {
-    profile = [Profile new];
-    
     self.nameTextField.text = @"";
     self.notesTextView.text = @"";
+    [self.transportModePickerView selectRow:TransportModeWalk inComponent:0 animated:NO];
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -33,8 +32,6 @@
     return TRANSPORT_MODE_ENUM_SIZE;
 }
 
-#pragma mark - UIPickerViewDelegate
-
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == 0) {
         return [Profile nameForTransportMode:row];
@@ -43,23 +40,17 @@
     return nil;
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if (component == 0 && row >= 0 && row < TRANSPORT_MODE_ENUM_SIZE) {
-        profile.transportMode = (transport_mode_t)row;
-    }
-}
-
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     activeField = textView;
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
-    profile.notes = textView.text;
-}
-
 #pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    activeField = textField;
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -67,19 +58,10 @@
     return NO;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    activeField = textField;
-}
-
 #pragma mark - Interface methods
 
 - (IBAction)recordingNameEditingChanged:(UITextField *)sender {
-    profile.name = sender.text;
-    if ([profile.name length] > 0) {
-        self.saveButton.enabled = YES;
-    } else {
-        self.saveButton.enabled = NO;
-    }
+    self.saveButton.enabled = [sender.text length] > 0;
 }
 
 - (IBAction)tapViewTapped:(UITapGestureRecognizer *)sender {
@@ -91,7 +73,7 @@
 }
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
-    [self.delegate saveRecordingWithProfile:profile];
+    [self.delegate saveRecordingWithName:self.nameTextField.text notes:self.notesTextView.text transportMode:[self.transportModePickerView selectedRowInComponent:0]];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

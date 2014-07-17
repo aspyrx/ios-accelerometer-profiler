@@ -7,6 +7,7 @@
 //
 
 #import "Profile.h"
+#import <CoreMotion/CoreMotion.h>
 
 @implementation Profile
 
@@ -18,8 +19,24 @@
         name = [NSString new];
         notes = [NSString new];
         transportMode = TRANSPORT_MODE_ENUM_SIZE;
+        data = [NSMutableData data];
     }
     return self;
+}
+
+- (void)addMotionData:(CMDeviceMotion *)motion {
+    [data appendData:[[NSString stringWithFormat:@"%f,%f,%f,%f,%f,%f,%f\r\n", motion.timestamp, motion.userAcceleration.x, motion.userAcceleration.y, motion.userAcceleration.z, motion.attitude.roll, motion.attitude.pitch, motion.attitude.yaw] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]];
+}
+
+- (NSData *)data {
+    if (!(name && notes && transportMode != TRANSPORT_MODE_ENUM_SIZE && data)) {
+        return nil;
+    }
+    
+    NSMutableData *newData = [NSMutableData dataWithData:[[NSString stringWithFormat:@"%@\r\n%@\r\n%d\r\n", name, notes, transportMode] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]];
+    [newData appendData:data];
+    
+    return newData;
 }
 
 + (NSString *)nameForTransportMode:(transport_mode_t)mode {

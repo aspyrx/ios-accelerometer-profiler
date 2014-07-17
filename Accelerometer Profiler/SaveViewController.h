@@ -14,10 +14,10 @@
 }
 
 @property (strong) id <ProfileRecorder> delegate;
-@property (strong) Profile *profile;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *notesTextView;
+@property (weak, nonatomic) IBOutlet UIPickerView *transportModePickerView;
 
 - (IBAction)recordingNameEditingChanged:(UITextField *)sender;
 - (IBAction)tapViewTapped:(UITapGestureRecognizer *)sender;

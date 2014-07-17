@@ -12,7 +12,6 @@
 
 static const NSTimeInterval kDeviceMotionUpdateIntervalMin = 0.05;
 static const NSTimeInterval kDeviceMotionRange = 10.0;
-static const NSTimeInterval kGraphReloadIntervalMin = 0.05;
 
 static NSString *kAccelXPlotIdentifier = @"accelX";
 static NSString *kAccelYPlotIdentifier = @"accelY";
@@ -20,6 +19,8 @@ static NSString *kAccelZPlotIdentifier = @"accelZ";
 static NSString *kGyroRollPlotIdentifier = @"gyroRoll";
 static NSString *kGyroPitchPlotIdentifier = @"gyroPitch";
 static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
+
+static NSString *kProfilesDirectory = @"Documents/Profiles/";
 
 @interface MainViewController ()
 
@@ -33,8 +34,13 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
+    
+    profile = [Profile new];
+    deviceMotionUpdateInterval = kDeviceMotionUpdateIntervalMin;
+    graphData = [NSMutableArray array];
+    graphDataLock = [NSLock new];
+    
+    mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
     
     // check that device motion is available
     if (![mManager isDeviceMotionAvailable]) {
@@ -42,10 +48,7 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     }
     
     // set initial update interval
-    [mManager setDeviceMotionUpdateInterval:kDeviceMotionUpdateIntervalMin];
-    
-    // initialize data array
-    motionData = [NSMutableArray new];
+    [mManager setDeviceMotionUpdateInterval:deviceMotionUpdateInterval];
     
     // remove "unavailable" message
     self.accelLabel.text = @"Accelerometer";
@@ -56,7 +59,7 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     // set up graphs
     accelGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     gyroGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-
+    
     self.accelGraphView.collapsesLayers = NO;
     self.gyroGraphView.collapsesLayers = NO;
     self.accelGraphView.hostedGraph = accelGraph;
@@ -164,14 +167,14 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 # pragma mark - CPTPlotDataSource
 
 - (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
-    return [motionData count];
+    return [graphData count];
 }
 
 - (double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx {
     NSString *identifier = (NSString *)plot.identifier;
-    CMDeviceMotion *motion = (CMDeviceMotion *)[motionData objectAtIndex:idx];
+    CMDeviceMotion *motion = [graphData objectAtIndex:idx];
     if (fieldEnum == CPTScatterPlotFieldX) {
-        CMDeviceMotion *first = (CMDeviceMotion *)[motionData firstObject];
+        CMDeviceMotion *first = [graphData firstObject];
         return motion.timestamp - first.timestamp;
     } else {
         if ([identifier isEqualToString:kAccelXPlotIdentifier]) {
@@ -195,50 +198,77 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 # pragma mark - ProfileRecorder
 
 - (void)startRecording {
-    CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
-    
     if (![mManager isDeviceMotionActive] && [mManager isDeviceMotionAvailable]) {
-        [mManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXTrueNorthZVertical toQueue:[NSOperationQueue currentQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
-            if (error != nil) {
-                NSLog(@"Error: %@", error);
+        // start device motion updates
+        [mManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXTrueNorthZVertical toQueue:[NSOperationQueue new] withHandler:^(CMDeviceMotion *motion, NSError *error) {
+            if (error) {
+                NSLog(@"%@", error);
                 return;
             }
             
-            [motionData addObject:motion];
-            CMDeviceMotion *d = [motionData firstObject];
-            while (motion.timestamp - d.timestamp > kDeviceMotionRange) {
-                [motionData removeObjectAtIndex:0];
-                d = [motionData firstObject];
+            [graphDataLock lock];
+            [graphData addObject:motion];
+            CMDeviceMotion *first = [graphData firstObject];
+            while (first != nil && motion.timestamp - first.timestamp > kDeviceMotionRange) {
+                [graphData removeObjectAtIndex:0];
+                first = [graphData firstObject];
             }
+            [graphDataLock unlock];
+            
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+                [graphDataLock lock];
+                [accelGraph reloadData];
+                [gyroGraph reloadData];
+                [graphDataLock unlock];
+            }];
+            
+            [profile addMotionData:motion];
         }];
-        
-        // start updating graph
-        graphReloadTimer = [NSTimer timerWithTimeInterval:MAX(kGraphReloadIntervalMin, deviceMotionUpdateInterval) target:self selector:@selector(reloadGraphs) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:graphReloadTimer forMode:NSDefaultRunLoopMode];
     }
     
     isRecording = YES;
+    self.recordButton.enabled = NO;
+    self.saveButton.enabled = YES;
 }
 
 - (void)stopRecording {
-    CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
-    
     if ([mManager isDeviceMotionActive]) {
         [mManager stopDeviceMotionUpdates];
     }
-    
-    // stop updating graph
-    [graphReloadTimer invalidate];
-    
+
     isRecording = NO;
+    self.recordButton.enabled = YES;
+    self.saveButton.enabled = NO;
 }
 
-- (void)saveRecordingWithProfile:(Profile *)profile {
-    if (!profile) {
-        return;
+- (void)saveRecordingWithName:(NSString *)name notes:(NSString *)notes transportMode:(transport_mode_t)transportMode {
+    [self stopRecording];
+    profile.name = name;
+    profile.notes = notes;
+    profile.transportMode = transportMode;
+    
+    NSString *profilesDir = [NSHomeDirectory() stringByAppendingPathComponent:kProfilesDirectory];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:profilesDir]) {
+        NSError *error;
+        [fm createDirectoryAtPath:profilesDir withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error) {
+            NSLog(@"Error creating profiles directory: %@", error);
+        }
     }
     
-    NSLog(@"%@ | %@ | %d", profile.name, profile.notes, profile.transportMode);
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"yyyy.MM.dd HH.mm.ss Z"];
+    NSString *date = [df stringFromDate:[NSDate date]];
+    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    NSString *filePath = [profilesDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ %@ %@.csv", date, uuid, name]];
+    if (![[profile data] writeToFile:filePath atomically:NO]) {
+        NSLog(@"Error writing profile to path: %@", filePath);
+    }
+    
+    profile = [Profile new];
 }
 
 # pragma mark - Navigation
@@ -252,6 +282,10 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 #pragma mark - Interface methods
 
+- (IBAction)recordButtonPressed:(UIBarButtonItem *)sender {
+    [self startRecording];
+}
+
 - (IBAction)updateIntervalValueChanged:(UIStepper *)sender {
     self.updateIntervalLabel.text = [NSString stringWithFormat:@"%.0f ms", sender.value];
     [self setDeviceMotionUpdateInterval:(sender.value / 1000)];
@@ -259,14 +293,7 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 # pragma mark -
 
-- (void)reloadGraphs {
-    [accelGraph reloadData];
-    [gyroGraph reloadData];
-}
-
 - (void)setDeviceMotionUpdateInterval:(NSTimeInterval)interval {
-    CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
-    
     deviceMotionUpdateInterval = MAX(kDeviceMotionUpdateIntervalMin, interval);
     [mManager setDeviceMotionUpdateInterval:deviceMotionUpdateInterval];
 }
