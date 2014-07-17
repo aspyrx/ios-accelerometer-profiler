@@ -53,6 +53,8 @@
             return @"Subway";
         case TransportModeTrain:
             return @"Train";
+        case TransportModeOther:
+            return @"Other";
         default:
             return nil;
     }

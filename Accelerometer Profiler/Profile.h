@@ -17,6 +17,7 @@ typedef enum {
     TransportModeBus,
     TransportModeSubway,
     TransportModeTrain,
+    TransportModeOther,
     TRANSPORT_MODE_ENUM_SIZE
 } transport_mode_t;
 
