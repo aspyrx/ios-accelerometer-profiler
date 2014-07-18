@@ -36,14 +36,15 @@
     }
     
     NSError *error;
-    profilePaths = [NSMutableArray arrayWithArray:[[fm contentsOfDirectoryAtPath:profilesDir error:&error] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.csv'"]]];
+    profilePaths = [[[fm contentsOfDirectoryAtPath:profilesDir error:&error] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.csv'"]] mutableCopy];
     if (error) {
         NSLog(@"Error getting contents of profiles directory: %@", error);
         return;
     }
     
+    profileMetadatas = [NSMutableArray array];
     for (NSUInteger i = 0; i < [profilePaths count]; i++) {
-        profilePaths[i] = [profilesDir stringByAppendingPathComponent:profilePaths[i]];
+        profileMetadatas[i] = [ProfileMetadata metadataFromFile:[profilesDir stringByAppendingPathComponent:profilePaths[i]]];
     }
 }
 
@@ -54,14 +55,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [profilePaths count];
+    return [profileMetadatas count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"profileCell"];
         
-        ProfileMetadata *metadata = [ProfileMetadata metadataFromFile:profilePaths[indexPath.row]];
+        ProfileMetadata *metadata = profileMetadatas[indexPath.row];
         
         cell.textLabel.text = metadata.name;
         NSDateFormatter *df = [NSDateFormatter new];
@@ -86,7 +87,17 @@
         if (error)
             NSLog(@"Error deleting profile: %@", error);
         [profilePaths removeObjectAtIndex:indexPath.row];
+        [profileMetadatas removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"profileCellSelected"]) {
+        ProfileDetailsTableViewController *vc = segue.destinationViewController;
+        [vc setMetadata:profileMetadatas[[self.tableView indexPathForCell:sender].row]];
     }
 }
 

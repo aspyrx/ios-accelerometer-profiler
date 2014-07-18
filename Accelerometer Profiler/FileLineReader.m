@@ -61,7 +61,7 @@
         path = aPath;
         lineDelimiter = @"\r\n";
         offset = 0ULL;
-        chunkSize = 16;
+        chunkSize = 256;
         [fh seekToEndOfFile];
         len = [fh offsetInFile];
     }

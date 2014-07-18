@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileDetailsTableViewController.h"
 
 @interface ProfilesTableViewController : UITableViewController {
     NSMutableArray *profilePaths;
+    NSMutableArray *profileMetadatas;
 }
 
 @end

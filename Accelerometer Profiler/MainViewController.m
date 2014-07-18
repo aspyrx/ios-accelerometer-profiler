@@ -271,7 +271,7 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"displaySaveModal"]) {
-        SaveViewController *vc = (SaveViewController *)segue.destinationViewController;
+        SaveViewController *vc = segue.destinationViewController;
         [vc setDelegate:self];
     }
 }
