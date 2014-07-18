@@ -73,13 +73,30 @@
 }
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
-    ProfileMetadata *metadata = [ProfileMetadata new];
-    metadata.date = [NSDate date];
-    metadata.name = self.nameTextField.text;
-    metadata.notes = self.notesTextView.text;
-    metadata.transportMode = [self.transportModePickerView selectedRowInComponent:0];
-    [self.delegate saveRecordingWithMetadata:metadata];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [self.saveButton setCustomView:indicator];
+    
+    NSOperationQueue *queue = [NSOperationQueue new];
+    [queue addOperationWithBlock:^(void) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+            [self.view setUserInteractionEnabled:NO];
+            [indicator startAnimating];
+        }];
+        
+        ProfileMetadata *metadata = [ProfileMetadata new];
+        metadata.date = [NSDate date];
+        metadata.name = self.nameTextField.text;
+        metadata.notes = self.notesTextView.text;
+        metadata.transportMode = [self.transportModePickerView selectedRowInComponent:0];
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+            [self.delegate saveRecordingWithMetadata:metadata];
+            [indicator stopAnimating];
+            [self.view setUserInteractionEnabled:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }];
 }
 
 @end

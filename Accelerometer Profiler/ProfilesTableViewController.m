@@ -36,7 +36,7 @@
     }
     
     NSError *error;
-    profilePaths = [[[fm contentsOfDirectoryAtPath:profilesDir error:&error] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.csv'"]] mutableCopy];
+    profilePaths = [[[[fm contentsOfDirectoryAtPath:profilesDir error:&error] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.csv'"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO]]] mutableCopy];
     if (error) {
         NSLog(@"Error getting contents of profiles directory: %@", error);
         return;
@@ -83,7 +83,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete && indexPath.section == 0) {
         NSError *error;
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager removeItemAtPath:profilePaths[indexPath.row] error:&error];
+        [fileManager removeItemAtPath:[[NSHomeDirectory() stringByAppendingPathComponent:kProfilesDirectory] stringByAppendingPathComponent:profilePaths[indexPath.row]] error:&error];
         if (error)
             NSLog(@"Error deleting profile: %@", error);
         [profilePaths removeObjectAtIndex:indexPath.row];

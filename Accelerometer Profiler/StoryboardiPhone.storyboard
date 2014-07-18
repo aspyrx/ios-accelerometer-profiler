@@ -175,7 +175,7 @@
                                                 <action selector="cancelButtonPressed:" destination="HQg-y4-PdJ" id="jt1-s2-qHJ"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="rhv-Zb-YeY">
+                                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Save" id="rhv-Zb-YeY">
                                             <connections>
                                                 <action selector="saveButtonPressed:" destination="HQg-y4-PdJ" id="bCq-il-7Po"/>
                                             </connections>
