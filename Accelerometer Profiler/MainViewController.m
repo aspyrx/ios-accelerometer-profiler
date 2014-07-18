@@ -20,8 +20,6 @@ static NSString *kGyroRollPlotIdentifier = @"gyroRoll";
 static NSString *kGyroPitchPlotIdentifier = @"gyroPitch";
 static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
-static NSString *kProfilesDirectory = @"Documents/Profiles/";
-
 @interface MainViewController ()
 
 @end
@@ -172,7 +170,7 @@ static NSString *kProfilesDirectory = @"Documents/Profiles/";
 
 - (double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx {
     NSString *identifier = (NSString *)plot.identifier;
-    CMDeviceMotion *motion = [graphData objectAtIndex:idx];
+    CMDeviceMotion *motion = graphData[idx];
     if (fieldEnum == CPTScatterPlotFieldX) {
         CMDeviceMotion *first = [graphData firstObject];
         return motion.timestamp - first.timestamp;
@@ -242,11 +240,9 @@ static NSString *kProfilesDirectory = @"Documents/Profiles/";
     self.saveButton.enabled = NO;
 }
 
-- (void)saveRecordingWithName:(NSString *)name notes:(NSString *)notes transportMode:(transport_mode_t)transportMode {
+- (void)saveRecordingWithMetadata:(ProfileMetadata *)metadata {
     [self stopRecording];
-    profile.name = name;
-    profile.notes = notes;
-    profile.transportMode = transportMode;
+    profile.metadata = metadata;
     
     NSString *profilesDir = [NSHomeDirectory() stringByAppendingPathComponent:kProfilesDirectory];
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -259,11 +255,11 @@ static NSString *kProfilesDirectory = @"Documents/Profiles/";
     }
     
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"yyyy.MM.dd HH.mm.ss Z"];
+    [df setDateFormat:kDateFormat];
     NSString *date = [df stringFromDate:[NSDate date]];
     NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
-    NSString *filePath = [profilesDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ %@ %@.csv", date, uuid, name]];
+    NSString *filePath = [profilesDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ %@.csv", date, uuid]];
     if (![[profile data] writeToFile:filePath atomically:NO]) {
         NSLog(@"Error writing profile to path: %@", filePath);
     }

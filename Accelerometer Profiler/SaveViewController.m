@@ -34,7 +34,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == 0) {
-        return [Profile nameForTransportMode:row];
+        return [ProfileMetadata nameForTransportMode:row];
     }
     
     return nil;
@@ -73,7 +73,12 @@
 }
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
-    [self.delegate saveRecordingWithName:self.nameTextField.text notes:self.notesTextView.text transportMode:[self.transportModePickerView selectedRowInComponent:0]];
+    ProfileMetadata *metadata = [ProfileMetadata new];
+    metadata.date = [NSDate date];
+    metadata.name = self.nameTextField.text;
+    metadata.notes = self.notesTextView.text;
+    metadata.transportMode = [self.transportModePickerView selectedRowInComponent:0];
+    [self.delegate saveRecordingWithMetadata:metadata];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

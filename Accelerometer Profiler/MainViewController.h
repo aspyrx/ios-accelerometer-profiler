@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
 #import "CorePlot-CocoaTouch.h"
+#import "ProfileMetadata.h"
 #import "Profile.h"
 
 @interface MainViewController : UIViewController <ProfileRecorder, CPTPlotDataSource> {

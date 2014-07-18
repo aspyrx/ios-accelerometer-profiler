@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Profile.h"
+#import "ProfileMetadata.h"
 
 @interface SaveViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UITextViewDelegate> {
     UIResponder *activeField;
