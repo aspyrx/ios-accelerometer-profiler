@@ -274,6 +274,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = aspyrx;
 				TargetAttributes = {
+					4DF7EA8A1971A73F0032D2E5 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					4DF7EAA51971A73F0032D2E5 = {
 						TestTargetID = 4DF7EA8A1971A73F0032D2E5;
 					};

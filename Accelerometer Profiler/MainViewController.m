@@ -33,10 +33,15 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // register for background notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
     profile = [Profile new];
     deviceMotionUpdateInterval = kDeviceMotionUpdateIntervalMin;
     graphData = [NSMutableArray array];
     graphDataLock = [NSLock new];
+    shouldUpdateGraphs = YES;
     
     mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
     
@@ -214,12 +219,14 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
             [graphDataLock unlock];
             
             
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
-                [graphDataLock lock];
-                [accelGraph reloadData];
-                [gyroGraph reloadData];
-                [graphDataLock unlock];
-            }];
+            if (shouldUpdateGraphs) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+                    [graphDataLock lock];
+                    [accelGraph reloadData];
+                    [gyroGraph reloadData];
+                    [graphDataLock unlock];
+                }];
+            }
 
             [profile addMotion:motion];
         }];
@@ -293,6 +300,14 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 - (void)setDeviceMotionUpdateInterval:(NSTimeInterval)interval {
     deviceMotionUpdateInterval = MAX(kDeviceMotionUpdateIntervalMin, interval);
     [mManager setDeviceMotionUpdateInterval:deviceMotionUpdateInterval];
+}
+
+- (void)applicationDidEnterBackground {
+    shouldUpdateGraphs = NO;
+}
+
+- (void)applicationWillEnterForeground {
+    shouldUpdateGraphs = YES;
 }
 
 @end

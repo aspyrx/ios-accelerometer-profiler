@@ -20,6 +20,7 @@
     Profile *profile;
     NSMutableArray *graphData;
     NSLock *graphDataLock;
+    BOOL shouldUpdateGraphs;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *accelLabel;

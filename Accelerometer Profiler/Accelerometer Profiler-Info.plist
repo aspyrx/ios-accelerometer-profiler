@@ -21,14 +21,15 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>250</string>
+	<string>253</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array/>
 	<key>UIMainStoryboardFile~iphone</key>
 	<string>StoryboardiPhone</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>magnetometer</string>
 		<string>gyroscope</string>
 		<string>accelerometer</string>
 		<string>armv7</string>
