@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class ProfileMetadata;
+@class Profile;
 
 @interface ProfileDetailsTableViewController : UITableViewController {
     UIFont *nameFont;
     UIFont *notesFont;
 }
 
-@property ProfileMetadata *metadata;
+@property Profile *profile;
 
 @end

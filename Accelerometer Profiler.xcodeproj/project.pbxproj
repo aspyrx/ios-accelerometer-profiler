@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0188DA197AC2AF00EFC9D8 /* ProfileDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0188D9197AC2AF00EFC9D8 /* ProfileDataViewController.m */; };
 		4DE6BBEB1971B2A4004A5985 /* StoryboardiPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6BBEA1971B2A4004A5985 /* StoryboardiPhone.storyboard */; };
 		4DE6BBEE1971B7A8004A5985 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6BBED1971B7A8004A5985 /* MainViewController.m */; };
 		4DE6BBF01971BB5F004A5985 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6BBEF1971BB5F004A5985 /* CoreMotion.framework */; };
@@ -58,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D0188D8197AC2AF00EFC9D8 /* ProfileDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileDataViewController.h; sourceTree = "<group>"; };
+		4D0188D9197AC2AF00EFC9D8 /* ProfileDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileDataViewController.m; sourceTree = "<group>"; };
 		4DE6BBEA1971B2A4004A5985 /* StoryboardiPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardiPhone.storyboard; sourceTree = "<group>"; };
 		4DE6BBEC1971B7A8004A5985 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4DE6BBED1971B7A8004A5985 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 				4DF2D78B197884AC0002EFDC /* ProfilesTableViewController.m */,
 				4DF2D7951978C9310002EFDC /* ProfileDetailsTableViewController.h */,
 				4DF2D7961978C9310002EFDC /* ProfileDetailsTableViewController.m */,
+				4D0188D8197AC2AF00EFC9D8 /* ProfileDataViewController.h */,
+				4D0188D9197AC2AF00EFC9D8 /* ProfileDataViewController.m */,
 				4DF7EAA01971A73F0032D2E5 /* Images.xcassets */,
 				4DF7EA951971A73F0032D2E5 /* Supporting Files */,
 				4DF7EAAD1971A73F0032D2E5 /* Accelerometer ProfilerTests */,
@@ -355,6 +360,7 @@
 				4DF2D78C197884AC0002EFDC /* ProfilesTableViewController.m in Sources */,
 				4DF2D7911978A8C80002EFDC /* FileLineReader.m in Sources */,
 				4DF8E2531976229600306039 /* Profile.m in Sources */,
+				4D0188DA197AC2AF00EFC9D8 /* ProfileDataViewController.m in Sources */,
 				4DF8E24F1975F7E600306039 /* SaveViewController.m in Sources */,
 				4DF2D7971978C9310002EFDC /* ProfileDetailsTableViewController.m in Sources */,
 				4DE6BBEE1971B7A8004A5985 /* MainViewController.m in Sources */,

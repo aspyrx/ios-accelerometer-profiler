@@ -74,7 +74,7 @@
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.saveButton setCustomView:indicator];
     
     NSOperationQueue *queue = [NSOperationQueue new];
@@ -89,9 +89,9 @@
         metadata.name = self.nameTextField.text;
         metadata.notes = self.notesTextView.text;
         metadata.transportMode = (transport_mode_t)[self.transportModePickerView selectedRowInComponent:0];
+        [self.delegate saveRecordingWithMetadata:metadata];
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
-            [self.delegate saveRecordingWithMetadata:metadata];
             [indicator stopAnimating];
             [self.view setUserInteractionEnabled:YES];
             [self dismissViewControllerAnimated:YES completion:nil];

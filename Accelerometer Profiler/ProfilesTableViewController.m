@@ -8,6 +8,7 @@
 
 #import "ProfilesTableViewController.h"
 #import "ProfileMetadata.h"
+#import "Profile.h"
 
 @interface ProfilesTableViewController ()
 
@@ -110,12 +111,27 @@
     }
 }
 
-#pragma mark - Navigation
+#pragma mark - UITableViewDelegate
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"profileCellSelected"]) {
-        ProfileDetailsTableViewController *vc = segue.destinationViewController;
-        [vc setMetadata:profileMetadatas[[self.tableView indexPathForCell:sender].row]];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        ProfileDetailsTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"profileDetailsViewController"];
+        
+        [[NSOperationQueue new] addOperationWithBlock:^(void) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.loadingIndicator];
+                [self.loadingIndicator startAnimating];
+            }];
+            
+            NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:kProfilesDirectory] stringByAppendingPathComponent:profilePaths[indexPath.row]];
+            vc.profile = [Profile profileFromFile:path];
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+                [self.loadingIndicator stopAnimating];
+                self.navigationItem.rightBarButtonItem = self.editButtonItem;
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
+        }];
     }
 }
 

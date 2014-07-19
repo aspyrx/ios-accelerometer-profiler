@@ -78,10 +78,10 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     CPTXYPlotSpace *gyroPlotSpace = (CPTXYPlotSpace *)gyroGraph.defaultPlotSpace;
     accelPlotSpace.allowsUserInteraction = NO;
     gyroPlotSpace.allowsUserInteraction = NO;
-    accelPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(kDeviceMotionRange)];
-    accelPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(2.0)];
-    gyroPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(kDeviceMotionRange)];
-    gyroPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-M_PI) length:CPTDecimalFromFloat(2 * M_PI)];
+    accelPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(kDeviceMotionRange)];
+    accelPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(2.0)];
+    gyroPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(kDeviceMotionRange)];
+    gyroPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-M_PI) length:CPTDecimalFromDouble(2 * M_PI)];
     
     // axes
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
@@ -220,8 +220,8 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
                 [gyroGraph reloadData];
                 [graphDataLock unlock];
             }];
-            
-            [profile addMotionData:motion];
+
+            [profile addMotion:motion];
         }];
     }
     
@@ -242,7 +242,6 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 - (void)saveRecordingWithMetadata:(ProfileMetadata *)metadata {
     [self stopRecording];
-    profile.metadata = metadata;
     
     NSString *profilesDir = [NSHomeDirectory() stringByAppendingPathComponent:kProfilesDirectory];
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -254,9 +253,11 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
         }
     }
     
+    profile.metadata = metadata;
+    
     NSDateFormatter *df = [NSDateFormatter new];
     [df setDateFormat:kDateFormat];
-    NSString *date = [df stringFromDate:[NSDate date]];
+    NSString *date = [df stringFromDate:profile.metadata.date];
     NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
     NSString *filePath = [profilesDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ %@.csv", date, uuid]];
