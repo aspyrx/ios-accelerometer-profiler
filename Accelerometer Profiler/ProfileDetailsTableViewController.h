@@ -10,7 +10,10 @@
 
 @class ProfileMetadata;
 
-@interface ProfileDetailsTableViewController : UITableViewController
+@interface ProfileDetailsTableViewController : UITableViewController {
+    UIFont *nameFont;
+    UIFont *notesFont;
+}
 
 @property ProfileMetadata *metadata;
 
