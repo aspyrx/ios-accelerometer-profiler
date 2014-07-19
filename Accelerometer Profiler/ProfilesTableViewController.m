@@ -17,35 +17,48 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     
-    NSFileManager *fm = [NSFileManager defaultManager];
+    profilePaths = [NSMutableOrderedSet orderedSet];
+    profileMetadatas = [NSMutableOrderedSet orderedSet];
+    self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    self.loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     
-    NSString *profilesDir = [NSHomeDirectory() stringByAppendingPathComponent:kProfilesDirectory];
-    if (![fm fileExistsAtPath:profilesDir]) {
+    [[NSOperationQueue new] addOperationWithBlock:^(void) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.loadingIndicator];
+            [self.loadingIndicator startAnimating];
+        }];
+        
+        NSFileManager *fm = [NSFileManager defaultManager];
+        
+        NSString *profilesDir = [NSHomeDirectory() stringByAppendingPathComponent:kProfilesDirectory];
+        if (![fm fileExistsAtPath:profilesDir]) {
+            NSError *error;
+            [fm createDirectoryAtPath:profilesDir withIntermediateDirectories:YES attributes:nil error:&error];
+            if (error) {
+                NSLog(@"Error creating profiles directory: %@", error);
+                return;
+            }
+        }
+        
         NSError *error;
-        [fm createDirectoryAtPath:profilesDir withIntermediateDirectories:YES attributes:nil error:&error];
+        profilePaths = [NSMutableOrderedSet orderedSetWithArray:[[[fm contentsOfDirectoryAtPath:profilesDir error:&error] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.csv'"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO]]]];
         if (error) {
-            NSLog(@"Error creating profiles directory: %@", error);
+            NSLog(@"Error getting contents of profiles directory: %@", error);
             return;
         }
-    }
-    
-    NSError *error;
-    profilePaths = [[[[fm contentsOfDirectoryAtPath:profilesDir error:&error] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.csv'"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO]]] mutableCopy];
-    if (error) {
-        NSLog(@"Error getting contents of profiles directory: %@", error);
-        return;
-    }
-    
-    profileMetadatas = [NSMutableArray array];
-    for (NSUInteger i = 0; i < [profilePaths count]; i++) {
-        profileMetadatas[i] = [ProfileMetadata metadataFromFile:[profilesDir stringByAppendingPathComponent:profilePaths[i]]];
-    }
+        
+        for (NSString *path in profilePaths) {
+            [profileMetadatas addObject:[ProfileMetadata metadataFromFile:[profilesDir stringByAppendingPathComponent:path]]];
+        }
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.loadingIndicator stopAnimating];
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 #pragma mark - UITableViewDataSource
@@ -54,8 +67,13 @@
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [profileMetadatas count];
+    if (section == 0) {
+        return [profileMetadatas count];
+    }
+    
+    return [super tableView:tableView numberOfRowsInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,7 +90,7 @@
         return cell;
     }
     
-    return nil;
+    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

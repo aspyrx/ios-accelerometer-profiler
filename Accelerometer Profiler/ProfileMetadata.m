@@ -33,7 +33,7 @@
     [df setDateFormat:kDateFormat];
     metadata.date = [df dateFromString:[reader readLine]];
     metadata.name = [reader readLine];
-    reader.lineDelimiter = [kProfileLineDelimiter stringByAppendingString:@"$DESC$"];
+    reader.lineDelimiter = [@"$DESC$" stringByAppendingString:kProfileLineDelimiter];
     metadata.notes = [reader readLine];
     reader.lineDelimiter = kProfileLineDelimiter;
     metadata.transportMode = [[reader readLine] intValue];

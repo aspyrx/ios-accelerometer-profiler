@@ -10,8 +10,10 @@
 #import "ProfileDetailsTableViewController.h"
 
 @interface ProfilesTableViewController : UITableViewController {
-    NSMutableArray *profilePaths;
-    NSMutableArray *profileMetadatas;
+    NSMutableOrderedSet *profilePaths;
+    NSMutableOrderedSet *profileMetadatas;
 }
+
+@property (strong, nonatomic) UIActivityIndicatorView *loadingIndicator;
 
 @end
