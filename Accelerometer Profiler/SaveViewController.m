@@ -34,7 +34,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == 0) {
-        return [ProfileMetadata nameForTransportMode:row];
+        return [ProfileMetadata nameForTransportMode:(transport_mode_t)row];
     }
     
     return nil;
@@ -88,7 +88,7 @@
         metadata.date = [NSDate date];
         metadata.name = self.nameTextField.text;
         metadata.notes = self.notesTextView.text;
-        metadata.transportMode = [self.transportModePickerView selectedRowInComponent:0];
+        metadata.transportMode = (transport_mode_t)[self.transportModePickerView selectedRowInComponent:0];
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
             [self.delegate saveRecordingWithMetadata:metadata];
