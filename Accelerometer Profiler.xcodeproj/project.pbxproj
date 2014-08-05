@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D0188DA197AC2AF00EFC9D8 /* ProfileDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0188D9197AC2AF00EFC9D8 /* ProfileDataViewController.m */; };
+		4D2932861991672900FFA1AD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D2932851991672900FFA1AD /* CoreLocation.framework */; };
 		4DE6BBEB1971B2A4004A5985 /* StoryboardiPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6BBEA1971B2A4004A5985 /* StoryboardiPhone.storyboard */; };
 		4DE6BBEE1971B7A8004A5985 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6BBED1971B7A8004A5985 /* MainViewController.m */; };
 		4DE6BBF01971BB5F004A5985 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6BBEF1971BB5F004A5985 /* CoreMotion.framework */; };
@@ -61,6 +62,7 @@
 /* Begin PBXFileReference section */
 		4D0188D8197AC2AF00EFC9D8 /* ProfileDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileDataViewController.h; sourceTree = "<group>"; };
 		4D0188D9197AC2AF00EFC9D8 /* ProfileDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileDataViewController.m; sourceTree = "<group>"; };
+		4D2932851991672900FFA1AD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4DE6BBEA1971B2A4004A5985 /* StoryboardiPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardiPhone.storyboard; sourceTree = "<group>"; };
 		4DE6BBEC1971B7A8004A5985 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4DE6BBED1971B7A8004A5985 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				4DF8E2491972F22000306039 /* QuartzCore.framework in Frameworks */,
 				4DF8E2481972F17500306039 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				4DE6BBF01971BB5F004A5985 /* CoreMotion.framework in Frameworks */,
+				4D2932861991672900FFA1AD /* CoreLocation.framework in Frameworks */,
 				4DF7EA911971A73F0032D2E5 /* CoreGraphics.framework in Frameworks */,
 				4DF7EA931971A73F0032D2E5 /* UIKit.framework in Frameworks */,
 				4DF7EA8F1971A73F0032D2E5 /* Foundation.framework in Frameworks */,
@@ -148,6 +151,7 @@
 		4DF7EA8D1971A73F0032D2E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D2932851991672900FFA1AD /* CoreLocation.framework */,
 				4DF8E0911972EFBC00306039 /* Accelerate.framework */,
 				4DF8E08F1972EFB400306039 /* QuartzCore.framework */,
 				4DE6BBEF1971BB5F004A5985 /* CoreMotion.framework */,

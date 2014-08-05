@@ -21,11 +21,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>253</string>
+	<string>255</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
-	<array/>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UIMainStoryboardFile~iphone</key>
 	<string>StoryboardiPhone</string>
 	<key>UIRequiredDeviceCapabilities</key>

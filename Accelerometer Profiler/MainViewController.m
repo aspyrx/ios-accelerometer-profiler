@@ -43,7 +43,10 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     graphDataLock = [NSLock new];
     shouldUpdateGraphs = YES;
     
-    mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
+    // start location updates for background motion updates; http://stackoverflow.com/a/20766280
+    [[(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedLocationManager] startUpdatingLocation];
+    
+    mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
     
     // check that device motion is available
     if (![mManager isDeviceMotionAvailable]) {

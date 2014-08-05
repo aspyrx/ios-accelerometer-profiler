@@ -10,17 +10,26 @@
 
 @interface AppDelegate () {
     CMMotionManager *motionManager;
+    CLLocationManager *locationManager;
 }
 @end
 
 @implementation AppDelegate
 
-- (CMMotionManager *)sharedManager {
+- (CMMotionManager *)sharedMotionManager {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         motionManager = [[CMMotionManager alloc] init];
     });
     return motionManager;
+}
+
+- (CLLocationManager *)sharedLocationManager {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        locationManager = [[CLLocationManager alloc] init];
+    });
+    return locationManager;
 }
 
 @end
