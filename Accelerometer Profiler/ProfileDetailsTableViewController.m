@@ -49,10 +49,16 @@
                     cell.textLabel.text = self.profile.metadata.notes;
                     cell.textLabel.numberOfLines = 0;
                     break;
-                case 2:
+            }
+            
+            break;
+        case 1:
+            switch (indexPath.row) {
+                case 0:
                     cell.textLabel.text = [ProfileMetadata nameForTransportMode:self.profile.metadata.transportMode];
                     break;
             }
+            
             break;
     }
     
