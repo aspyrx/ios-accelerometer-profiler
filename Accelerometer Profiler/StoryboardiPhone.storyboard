@@ -193,7 +193,7 @@
                                 <rect key="frame" x="20" y="84" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                                 <connections>
                                     <action selector="recordingNameEditingChanged:" destination="HQg-y4-PdJ" eventType="editingChanged" id="BMU-Ah-e5C"/>
                                     <outlet property="delegate" destination="HQg-y4-PdJ" id="jFg-7s-JUc"/>
