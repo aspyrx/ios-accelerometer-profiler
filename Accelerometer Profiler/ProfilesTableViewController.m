@@ -86,7 +86,7 @@
         cell.textLabel.text = metadata.name;
         NSDateFormatter *df = [NSDateFormatter new];
         [df setDateFormat:kDateFormatDisplay];
-        cell.detailTextLabel.text = [df stringFromDate:metadata.date];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\t%@", [df stringFromDate:metadata.date], [ProfileMetadata nameForTransportMode:metadata.transportMode]];
         
         return cell;
     }

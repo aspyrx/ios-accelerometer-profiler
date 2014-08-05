@@ -36,6 +36,7 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     // register for background notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate) name:UIApplicationWillTerminateNotification object:nil];
     
     profile = [Profile new];
     deviceMotionUpdateInterval = kDeviceMotionUpdateIntervalMin;
@@ -44,7 +45,10 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     shouldUpdateGraphs = YES;
     
     // start location updates for background motion updates; http://stackoverflow.com/a/20766280
-    [[(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedLocationManager] startUpdatingLocation];
+    CLLocationManager *lManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedLocationManager];
+    lManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+    lManager.distanceFilter = CLLocationDistanceMax;
+    [lManager startUpdatingLocation];
     
     mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
     
@@ -311,6 +315,20 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 - (void)applicationWillEnterForeground {
     shouldUpdateGraphs = YES;
+}
+
+- (void)applicationWillTerminate {
+    NSDate *date = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:kDateFormatDisplay];
+    
+    ProfileMetadata *metadata = [ProfileMetadata new];
+    metadata.date = date;
+    metadata.name = [df stringFromDate:date];
+    metadata.notes = @"This recording was saved because the app was terminated while a recording was still in progress.";
+    metadata.transportMode = TransportModeOther;
+    
+    [self saveRecordingWithMetadata:metadata];
 }
 
 @end

@@ -33,7 +33,7 @@
         return [df stringFromDate:self.profile.metadata.date];
     }
     
-    return nil;
+    return [super tableView:tableView titleForHeaderInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -48,6 +48,9 @@
                 case 1:
                     cell.textLabel.text = self.profile.metadata.notes;
                     cell.textLabel.numberOfLines = 0;
+                    break;
+                case 2:
+                    cell.textLabel.text = [ProfileMetadata nameForTransportMode:self.profile.metadata.transportMode];
                     break;
             }
             break;
