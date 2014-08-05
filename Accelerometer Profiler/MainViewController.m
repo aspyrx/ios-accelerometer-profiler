@@ -44,11 +44,10 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
     graphDataLock = [NSLock new];
     shouldUpdateGraphs = YES;
     
-    // start location updates for background motion updates; http://stackoverflow.com/a/20766280
+    // set up location manager accuracy (lowest possible to save battery)
     CLLocationManager *lManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedLocationManager];
     lManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
     lManager.distanceFilter = CLLocationDistanceMax;
-    [lManager startUpdatingLocation];
     
     mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
     
@@ -209,6 +208,9 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 
 - (void)startRecording {
     if (![mManager isDeviceMotionActive] && [mManager isDeviceMotionAvailable]) {
+        // start location updates for background motion updates; http://stackoverflow.com/a/20766280
+        [[(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedLocationManager] startUpdatingLocation];
+        
         // start device motion updates
         [mManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXTrueNorthZVertical toQueue:[NSOperationQueue new] withHandler:^(CMDeviceMotion *motion, NSError *error) {
             if (error) {
@@ -245,6 +247,8 @@ static NSString *kGyroYawPlotIdentifier = @"gyroYaw";
 }
 
 - (void)stopRecording {
+    [[(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedLocationManager] stopUpdatingLocation];
+    
     if ([mManager isDeviceMotionActive]) {
         [mManager stopDeviceMotionUpdates];
     }
